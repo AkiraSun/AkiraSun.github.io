@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="基础代码写到一定程度就会不断的朝着一系列特定的设计模式迁移，即使这种模式在以往未有经验习得，但是在不断的摸索中也会有所感知。是的，这种模式已经被总结归纳出来，就是代码编码的设计模式。 设计模式是一种能够抽象，能将特定的现实问题通过特定的设计模式解决。就好比在 JavaScript 中处理数据时，使用 Lodash 或者 Underscore 提供的函数就比自己实现一个好很多，关键一点是容错及性能、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式">
+<meta property="og:url" content="http://yoursite.com/2018/06/30/2018-6-30/index.html">
+<meta property="og:site_name" content="进击的Akira">
+<meta property="og:description" content="基础代码写到一定程度就会不断的朝着一系列特定的设计模式迁移，即使这种模式在以往未有经验习得，但是在不断的摸索中也会有所感知。是的，这种模式已经被总结归纳出来，就是代码编码的设计模式。 设计模式是一种能够抽象，能将特定的现实问题通过特定的设计模式解决。就好比在 JavaScript 中处理数据时，使用 Lodash 或者 Underscore 提供的函数就比自己实现一个好很多，关键一点是容错及性能、">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-08T12:51:24.346Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式">
+<meta name="twitter:description" content="基础代码写到一定程度就会不断的朝着一系列特定的设计模式迁移，即使这种模式在以往未有经验习得，但是在不断的摸索中也会有所感知。是的，这种模式已经被总结归纳出来，就是代码编码的设计模式。 设计模式是一种能够抽象，能将特定的现实问题通过特定的设计模式解决。就好比在 JavaScript 中处理数据时，使用 Lodash 或者 Underscore 提供的函数就比自己实现一个好很多，关键一点是容错及性能、">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/30/2018-6-30/"/>
+
+
+
+
+
+  <title>设计模式 | 进击的Akira</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">进击的Akira</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">死码字的</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/30/2018-6-30/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Akira Sun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="进击的Akira">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">设计模式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-30T12:58:56+08:00">
+                2018-06-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>基础代码写到一定程度就会不断的朝着一系列特定的设计模式迁移，即使这种模式在以往未有经验习得，但是在不断的摸索中也会有所感知。是的，这种模式已经被总结归纳出来，就是代码编码的设计模式。</p>
+<p>设计模式是一种能够抽象，能将特定的现实问题通过特定的设计模式解决。就好比在 JavaScript 中处理数据时，使用 Lodash 或者 Underscore 提供的函数就比自己实现一个好很多，关键一点是容错及性能、再加上代码阅读难易程度上。</p>
+<blockquote>
+<p>设计模式是代码编写的高级语言，就好比成语相对于汉语的关系。这是《刻意联系》一书中所说的高级心理表征。</p>
+</blockquote>
+<p>这里说下设计模式的特点：</p>
+<ul>
+<li>可复用的、解决软件设计中的常见问题</li>
+<li>已被验证、大量使用的解决方案</li>
+<li>使用模式规范代码，防止产生不必要的小问题（代码一致性的问题，有时候人是靠不住的）</li>
+<li>设计模式是开发人员的必备技能，通用语言</li>
+<li>做到代码精简，思路清晰</li>
+</ul>
+<p>模式的分类：</p>
+<ul>
+<li>创建型设计模式（生成对象）</li>
+<li>结构型设计模式（描述对象间关系）</li>
+<li>行为设计模式（描述对象间通信方法）</li>
+</ul>
+<h2 id="创建型设计模式（生成对象）"><a href="#创建型设计模式（生成对象）" class="headerlink" title="创建型设计模式（生成对象）"></a>创建型设计模式（生成对象）</h2><h3 id="Constructor"><a href="#Constructor" class="headerlink" title="Constructor"></a>Constructor</h3><p>ES6 中的 class，这个已在实践中大量使用，ES6 的 Class 语法参考这里： <a href="http://es6.ruanyifeng.com/#docs/class" target="_blank" rel="noopener">Class 的基本语法</a>，前一篇博文已有 Constructor 和 Prototype 对比介绍的相关文章：<a href="/guan-yu-class/">关于 class</a>。</p>
+<h3 id="Module"><a href="#Module" class="headerlink" title="Module"></a>Module</h3><p>ES6 中的 Module，这个已在实践中大量使用，内容参考这里：<a href="http://es6.ruanyifeng.com/#docs/module" target="_blank" rel="noopener">Module 的语法</a>。关于 ES6 与 Commonjs 的 Module 区别已在另一篇博文介绍：<a href="/guan-yu-module/">关于 Module</a>。</p>
+<h3 id="Singleton"><a href="#Singleton" class="headerlink" title="Singleton"></a>Singleton</h3><p>一般通过闭包保存私有变量来实现，不一定需要将生成的示例放到全局 window 上（好像是废话）。单例模式的出现表明了系统中的模块耦合紧密，其代码分散在各个模块中。这与模块解耦的思想背道而驰，使用时注意。</p>
+<h3 id="Prototype"><a href="#Prototype" class="headerlink" title="Prototype"></a>Prototype</h3><blockquote>
+<p>对于原型模式，我们可以利用 JavaScript 特有的原型继承特性去创建对象的方式，也就是创建的一个对象作为另外一个对象的 prototype 属性值。原型对象本身就是有效地利用了每个构造器创建的对象，例如，如果一个构造函数的原型包含了一个 name 属性（见后面的例子），那通过这个构造函数创建的对象都会有这个属性。</p>
+</blockquote>
+<p>目前这类模式我在工作中直接使用的很少，都是通过 Class+Babel 模式开发。虽然 JS 原生支持这个模式，但是在编程人员自己的思维模型模型中，通过 Class 的模式创建实例比较主流。这部分比较有名的是<a href="https://www.npmjs.com/package/stampit" target="_blank" rel="noopener">Stampit 库</a>，我个人认为这样的非主流技巧用在个人项目中完全没问题，团队合作除非达成共识，建议还是跟随主流使用 Class。</p>
+<h3 id="Factory"><a href="#Factory" class="headerlink" title="Factory"></a>Factory</h3><p>工场模式和使用 class 生成示例很像，但是两者在使用场景上是有区别的：</p>
+<ul>
+<li>Factory 模式一般用于构建十分复的杂对象</li>
+<li>如果生成的实例对象和环境有关，使用 Factory 模式将会更灵活一些</li>
+<li>class 适合于“骨架”对象的定义，可以通过继承来达到<strong>有限的</strong>灵活性</li>
+</ul>
+<p><strong>工厂函数</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> page = page || &#123;&#125;;</span><br><span class="line">page.dom = page.dom || &#123;&#125;;</span><br><span class="line"><span class="comment">//子函数1：处理文本</span></span><br><span class="line">page.dom.Text = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.insert = <span class="function"><span class="keyword">function</span>(<span class="params">where</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> txt = <span class="built_in">document</span>.createTextNode(<span class="keyword">this</span>.url);</span><br><span class="line">    where.appendChild(txt);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//子函数2：处理链接</span></span><br><span class="line">page.dom.Link = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.insert = <span class="function"><span class="keyword">function</span>(<span class="params">where</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> link = <span class="built_in">document</span>.createElement(<span class="string">"a"</span>);</span><br><span class="line">    link.href = <span class="keyword">this</span>.url;</span><br><span class="line">    link.appendChild(<span class="built_in">document</span>.createTextNode(<span class="keyword">this</span>.url));</span><br><span class="line">    where.appendChild(link);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//子函数3：处理图片</span></span><br><span class="line">page.dom.Image = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.insert = <span class="function"><span class="keyword">function</span>(<span class="params">where</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> im = <span class="built_in">document</span>.createElement(<span class="string">"img"</span>);</span><br><span class="line">    im.src = <span class="keyword">this</span>.url;</span><br><span class="line">    where.appendChild(im);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">page.dom.factory = <span class="function"><span class="keyword">function</span>(<span class="params">type</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> page.dom[type]();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>使用方法：</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = page.dom.factory(<span class="string">"Link"</span>);</span><br><span class="line">o.url = <span class="string">"http://www.cnblogs.com"</span>;</span><br><span class="line">o.insert(<span class="built_in">document</span>.body);</span><br></pre></td></tr></table></figure>
+<h2 id="结构型设计模式-表述结构与关系"><a href="#结构型设计模式-表述结构与关系" class="headerlink" title="结构型设计模式(表述结构与关系)"></a>结构型设计模式(表述结构与关系)</h2><h3 id="Facade-外观模式"><a href="#Facade-外观模式" class="headerlink" title="Facade 外观模式"></a>Facade 外观模式</h3><p>使用过 jQuery 的元素选择器就知道了这个模式的具体用法和缺点了。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">".app"</span>).click(<span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>对外提供统一接口，隐藏内部实现</li>
+<li>这种抽象会对性能产生影响，设计时需要评估性能成本</li>
+</ul>
+<h3 id="Decorator-装饰者模式"><a href="#Decorator-装饰者模式" class="headerlink" title="Decorator 装饰者模式"></a>Decorator 装饰者模式</h3><p>拓展一个对象我们一般使用类的继承方式进行，而装饰者模式有着比类继承更好的弹性。区别继承模式和装饰着模式的关键是理解：<strong>共性和个性</strong>。</p>
+<p>比如使用类的继承可以实现这样的关系：车=车身+发动机+轮子+车窗，这些是共性，具有结构性，可以通过继承完美解决。但是全景天窗+19 寸轮子+车内挂饰等，这些都是个性，使用类继承将需要写很多个性化代码，不利于维护。</p>
+<ul>
+<li>对象装饰：Object.assign，或者直接<code>a.newMethod</code>。</li>
+<li>类方法的装饰：例如：<code>@debounce(100)</code></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Debounce <span class="keyword">from</span> <span class="string">"lodash-decorators/debounce"</span>;</span><br><span class="line"><span class="keyword">import</span> Bind <span class="keyword">from</span> <span class="string">"lodash-decorators/bind"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; connect &#125; <span class="keyword">from</span> <span class="string">"dva"</span>;</span><br><span class="line"></span><br><span class="line">@connect()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Com</span> <span class="keyword">extends</span> <span class="title">React</span> </span>&#123;</span><br><span class="line">  @Bind()</span><br><span class="line">  @Debounce(<span class="number">200</span>)</span><br><span class="line">  onClickHandler() &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Flyweight-享元模式"><a href="#Flyweight-享元模式" class="headerlink" title="Flyweight 享元模式"></a>Flyweight 享元模式</h3><p>这种模式主要是为了避免创建大量相同的东西，比如类、数据、事件绑定函数等。比如实例只有几个参数不同其余完全一致，就可以将那些参数移动到类实例的外面，在方法调用的时候将他们传递进来，就可以通过共享大幅度第减少单个实例的数目。</p>
+<ul>
+<li>数据层：公共信息提取，单独维护，公共数据的状态通过继承、组合的方式进行拓展。在形式上类似于分型，顶部为公共数据。</li>
+<li>DOM 层：用于 DOM 中则为事件代理模式，即当绑定的事件的子元素很多时，会造成性能问题，且事件处理函数本身基本相同，因此使用父元素代理能解决性能问题。</li>
+<li>缓存系统</li>
+</ul>
+<h2 id="行为设计模式（描述对象间通信方式）"><a href="#行为设计模式（描述对象间通信方式）" class="headerlink" title="行为设计模式（描述对象间通信方式）"></a>行为设计模式（描述对象间通信方式）</h2><h3 id="Publish-Subscribe-发布订阅模式"><a href="#Publish-Subscribe-发布订阅模式" class="headerlink" title="Publish/Subscribe 发布订阅模式"></a>Publish/Subscribe 发布订阅模式</h3><blockquote>
+<p>它定义了一种一对多的关系，让多个<strong>观察者对象</strong>同时监听一个<strong>主题对象</strong>的状态，当这个<strong>主题对象</strong>的状态发生变化时，就会通知所有<strong>已注册的观察者对象</strong>，<strong>观察者对象</strong>根据主题状态进行后进行自己的逻辑处理。</p>
+<p><a href="https://www.cnblogs.com/TomXu/archive/2012/03/02/2355128.html" target="_blank" rel="noopener">深入理解 JavaScript 系列（32）：设计模式之观察者模式</a></p>
+</blockquote>
+<p>适用场景：<strong>一个对象的改变需要改变多个其他对象（不确定其他对象数目）</strong>，比如 UI 事件类。因此，观察者模式所做的工作就是解耦，让耦合的双方都依赖于抽象，而不是依赖于具体，从而使得各自的变化都不会影响到另一边的变化。</p>
+<p>关于事件订阅发布模型可以参考 Nodejs 的<a href="https://nodejs.org/api/events.html" target="_blank" rel="noopener">EventsAPI</a>，我曾经根据这个 API 写了一个能在浏览器端工作的事件订阅发布库<a href="https://github.com/typescript-practice/events" target="_blank" rel="noopener">events</a>，关键 API 如下：</p>
+<ul>
+<li>emitter.addListener(eventName, listener)</li>
+<li>emitter.emit(eventName[, …args])</li>
+<li>emitter.on(eventName, listener)</li>
+<li>emitter.once(eventName, listener)</li>
+<li>emitter.off(eventName, listener)</li>
+</ul>
+<h3 id="Observer-观察者模式"><a href="#Observer-观察者模式" class="headerlink" title="Observer 观察者模式"></a>Observer 观察者模式</h3><blockquote>
+<p>这里缺一个 UML 图</p>
+<p>Vue 双向绑定的实现</p>
+</blockquote>
+<p>待续。</p>
+<h3 id="Mediator-中介者模式"><a href="#Mediator-中介者模式" class="headerlink" title="Mediator 中介者模式"></a>Mediator 中介者模式</h3><p><a href="https://www.cnblogs.com/TomXu/archive/2012/03/13/2374789.html" target="_blank" rel="noopener">深入理解 JavaScript 系列（36）：设计模式之中介者模式</a></p>
+<p>待续。</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="Command-命令模式"><a href="#Command-命令模式" class="headerlink" title="Command 命令模式"></a>Command 命令模式</h3><blockquote>
+<p>在实际项目中已经使用过这个模式，但是不知道原来是 Command 模式</p>
+</blockquote>
+<p><strong>原始函数：</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> CarManager = &#123;</span><br><span class="line">    <span class="comment">// 请求信息</span></span><br><span class="line">    requestInfo: <span class="function"><span class="keyword">function</span>(<span class="params">model, id</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">"The information for "</span> + model + <span class="string">" with ID "</span> + id + <span class="string">" is foobar"</span>;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 购买汽车</span></span><br><span class="line">    buyVehicle: <span class="function"><span class="keyword">function</span>(<span class="params">model, id</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">"You have successfully purchased Item "</span> + id + <span class="string">", a "</span> + model;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 组织view</span></span><br><span class="line">    arrangeViewing: <span class="function"><span class="keyword">function</span>(<span class="params">model, id</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> (</span><br><span class="line">        <span class="string">"You have successfully booked a viewing of "</span> +</span><br><span class="line">        model +</span><br><span class="line">        <span class="string">" ( "</span> +</span><br><span class="line">        id +</span><br><span class="line">        <span class="string">" ) "</span></span><br><span class="line">      );</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<p>上述函数可能在使用时出现耦合过紧的问题，需要一个中间层抽象，可以这么写：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 添加方法</span></span><br><span class="line">CarManager.execute = <span class="function"><span class="keyword">function</span>(<span class="params">command</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> CarManager[command.request](command.model, command.carID);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line">CarManager.execute(&#123;</span><br><span class="line">  request: <span class="string">"arrangeViewing"</span>,</span><br><span class="line">  model: <span class="string">"Ferrari"</span>,</span><br><span class="line">  carID: <span class="string">"145523"</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="Mixin-混入模式"><a href="#Mixin-混入模式" class="headerlink" title="Mixin 混入模式"></a>Mixin 混入模式</h3><p>(完)</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/13/2018-04-13/" rel="next" title="异步相关操作（注意点）">
+                <i class="fa fa-chevron-left"></i> 异步相关操作（注意点）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/07/2018-07-07/" rel="prev" title="关于Module">
+                关于Module <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Akira Sun</p>
+              <p class="site-description motion-element" itemprop="description">前端 | 摄影 | 研究烧菜</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建型设计模式（生成对象）"><span class="nav-number">1.</span> <span class="nav-text">创建型设计模式（生成对象）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Constructor"><span class="nav-number">1.1.</span> <span class="nav-text">Constructor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Module"><span class="nav-number">1.2.</span> <span class="nav-text">Module</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Singleton"><span class="nav-number">1.3.</span> <span class="nav-text">Singleton</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Prototype"><span class="nav-number">1.4.</span> <span class="nav-text">Prototype</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Factory"><span class="nav-number">1.5.</span> <span class="nav-text">Factory</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结构型设计模式-表述结构与关系"><span class="nav-number">2.</span> <span class="nav-text">结构型设计模式(表述结构与关系)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Facade-外观模式"><span class="nav-number">2.1.</span> <span class="nav-text">Facade 外观模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Decorator-装饰者模式"><span class="nav-number">2.2.</span> <span class="nav-text">Decorator 装饰者模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flyweight-享元模式"><span class="nav-number">2.3.</span> <span class="nav-text">Flyweight 享元模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#行为设计模式（描述对象间通信方式）"><span class="nav-number">3.</span> <span class="nav-text">行为设计模式（描述对象间通信方式）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Publish-Subscribe-发布订阅模式"><span class="nav-number">3.1.</span> <span class="nav-text">Publish/Subscribe 发布订阅模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Observer-观察者模式"><span class="nav-number">3.2.</span> <span class="nav-text">Observer 观察者模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mediator-中介者模式"><span class="nav-number">3.3.</span> <span class="nav-text">Mediator 中介者模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">4.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Command-命令模式"><span class="nav-number">4.1.</span> <span class="nav-text">Command 命令模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mixin-混入模式"><span class="nav-number">4.2.</span> <span class="nav-text">Mixin 混入模式</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Akira Sun</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

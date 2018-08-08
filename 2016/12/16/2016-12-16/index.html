@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="这个不是业务的要求，但是看到每次进入页面就重新渲染 DOM 然后再获取数据更新 DOM，觉得作为一个前端工程师有必要优化下的加载逻辑，正好 vue 提供了keep-alive的功能，所以就试用了下。当然，干任何事儿都不会一帆风顺的，在路上的磕磕碰碰在所难免，故在此记录下遇到的问题，希望看到这篇文章的人能有所帮助。ps：这个也没多难。 HTML 部分： 1234567&amp;lt;template&amp;gt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="路由开启keep-alive时的注意点">
+<meta property="og:url" content="http://yoursite.com/2016/12/16/2016-12-16/index.html">
+<meta property="og:site_name" content="进击的Akira">
+<meta property="og:description" content="这个不是业务的要求，但是看到每次进入页面就重新渲染 DOM 然后再获取数据更新 DOM，觉得作为一个前端工程师有必要优化下的加载逻辑，正好 vue 提供了keep-alive的功能，所以就试用了下。当然，干任何事儿都不会一帆风顺的，在路上的磕磕碰碰在所难免，故在此记录下遇到的问题，希望看到这篇文章的人能有所帮助。ps：这个也没多难。 HTML 部分： 1234567&amp;lt;template&amp;gt;">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-08T12:52:04.401Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="路由开启keep-alive时的注意点">
+<meta name="twitter:description" content="这个不是业务的要求，但是看到每次进入页面就重新渲染 DOM 然后再获取数据更新 DOM，觉得作为一个前端工程师有必要优化下的加载逻辑，正好 vue 提供了keep-alive的功能，所以就试用了下。当然，干任何事儿都不会一帆风顺的，在路上的磕磕碰碰在所难免，故在此记录下遇到的问题，希望看到这篇文章的人能有所帮助。ps：这个也没多难。 HTML 部分： 1234567&amp;lt;template&amp;gt;">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/12/16/2016-12-16/"/>
+
+
+
+
+
+  <title>路由开启keep-alive时的注意点 | 进击的Akira</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">进击的Akira</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">死码字的</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/16/2016-12-16/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Akira Sun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="进击的Akira">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">路由开启keep-alive时的注意点</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-16T09:11:02+08:00">
+                2016-12-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vue/" itemprop="url" rel="index">
+                    <span itemprop="name">vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这个不是业务的要求，但是看到每次进入页面就重新渲染 DOM 然后再获取数据更新 DOM，觉得作为一个前端工程师有必要优化下的加载逻辑，正好 vue 提供了<code>keep-alive</code>的功能，所以就试用了下。当然，干任何事儿都不会一帆风顺的，在路上的磕磕碰碰在所难免，故在此记录下遇到的问题，希望看到这篇文章的人能有所帮助。ps：这个也没多难。</p>
+<p>HTML 部分：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">keep-alive</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">router-view</span>&gt;</span><span class="tag">&lt;/<span class="name">router-view</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">keep-alive</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>JavaScript 部分：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">.....</span><br><span class="line"></span><br><span class="line">    created: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="number">1</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    mounted: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="number">2</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    activated: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="number">3</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    deactivated: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="number">4</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">.....</span><br></pre></td></tr></table></figure>
+<h2 id="1-什么阶段获取数据"><a href="#1-什么阶段获取数据" class="headerlink" title="1. 什么阶段获取数据"></a>1. 什么阶段获取数据</h2><p>页面生命周期钩子如上面的代码所示，这四个是最常用到的部分。这部分需要注意下，当引入<code>keep-alive</code>的时候，页面第一次进入，钩子的触发顺序 created-&gt; mounted-&gt; activated，退出时触发 deactivated。当再次进入（前进或者后退）时，只触发 activated。</p>
+<p>我们知道<code>keep-alive</code>之后页面模板第一次初始化解析变成 HTML 片段后，再次进入就不在重新解析而是读取内存中的数据，即，只有当数据变化时，才使用 VirtualDOM 进行 diff 更新。故，页面进入的数据获取应该在 activated 中也放一份。数据下载完毕手动操作 DOM 的部分也应该在 activated 中执行才会生效。</p>
+<p>所以，应该 activated 中留一份数据获取的代码，或者不要 created 部分，直接将 created 中的代码转移到 activated 中。</p>
+<h2 id="2-route中的数据读不到"><a href="#2-route中的数据读不到" class="headerlink" title="2. $route中的数据读不到"></a>2. <code>$route</code>中的数据读不到</h2><p>以前的写法是在 data 中将需要的<code>$route</code>数据进行赋值，便于其余方法使用，但是使用了<code>keep-alive</code>后数据需要进入页面在 activated 中再次获取，才能达到更新的目的。定义一个 initData 方法，然后在 activated 中启动。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">initData: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> _this = <span class="keyword">this</span>;</span><br><span class="line">        _this.fromLocation = <span class="built_in">JSON</span>.parse(<span class="keyword">this</span>.$route.query.fromLocation);</span><br><span class="line">        _this.toLocation = <span class="built_in">JSON</span>.parse(<span class="keyword">this</span>.$route.query.toLocation);</span><br><span class="line">        _this.activeIndex = <span class="built_in">parseInt</span>(<span class="keyword">this</span>.$route.params.activeIndex) || <span class="number">0</span>;</span><br><span class="line">        _this.policyType = <span class="built_in">parseInt</span>(<span class="keyword">this</span>.$route.params.policyType) || <span class="number">0</span>;</span><br><span class="line">      &#125;,</span><br></pre></td></tr></table></figure>
+<h2 id="3-当页动态修改-url"><a href="#3-当页动态修改-url" class="headerlink" title="3. 当页动态修改 url"></a>3. 当页动态修改 url</h2><p>需求描述：当页面在进行轮播操作的时候希望能记录当前显示的轮播 ID(activeIndex)。当进入下一个页面再返回的时候能记住之前的选择，将轮播打到之前的 ID 位置。所以我想将这部分信息固化在 url 中，轮播发生变化时，修改 URL。这样实现比较符最小修改原则，其余页面不用变动。</p>
+<p>之前的写法是将 activeIndex 放在<code>$route</code>的 query 中，当轮播后，将<br>activeIndex 的值存入<code>$route.query.activeIndex</code>中，然后<code>$router.replace</code>当前路由，理论上应该能发生变化，但实际没有。</p>
+<p>查看文档后说，<code>$route</code>是只读模式。当然，对象部分是他监管不到的，我修改了并不是正统的做法。</p>
+<p><strong>神奇的地方来了</strong>：当我将 activeIndex 记在 params 中，轮播变动修改 params 中的参数，然后<code>$router.replace</code>当前路由，却能发生对应的变化。代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> swiperInstance = <span class="keyword">new</span> Swiper(<span class="string">"#swiper"</span>, &#123;</span><br><span class="line">  pagination: <span class="string">".swiper-pagination"</span>,</span><br><span class="line">  paginationClickable: <span class="literal">false</span>,</span><br><span class="line">  initialSlide: activeIndex,</span><br><span class="line">  onSlideChangeEnd: <span class="function"><span class="keyword">function</span>(<span class="params">swiper</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> _activeIndex = swiper.activeIndex;</span><br><span class="line">    _this.$route.params.activeIndex = _activeIndex;</span><br><span class="line">    <span class="comment">// $router我放到了window上方便调用</span></span><br><span class="line">    <span class="built_in">window</span>.$router.replace(&#123;</span><br><span class="line">      name: _this.$route.name,</span><br><span class="line">      params: _this.$route.params,</span><br><span class="line">      query: _this.$route.query</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// 根据activeIndex，在这里初始化下面显示的数据</span></span><br><span class="line">    _this.transferDetail = _this.allData.plans[_activeIndex].segments;</span><br><span class="line">    _this.clearBusDetailFoldState();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="4-事件如何处理"><a href="#4-事件如何处理" class="headerlink" title="4. 事件如何处理"></a>4. 事件如何处理</h2><p>估计你也能猜到，发生的问题是事件绑定了很多次，比如上传点击 input 监听 change 事件，突然显示了多张相同图片的问题。</p>
+<p>也就是说，DOM 在编译后就缓存在内容中了，如果再次进入还再进行事件绑定初始化则就会发生这个问题。</p>
+<p>解决办法：在 mounted 中绑定事件，因为这个只执行一次，并且 DOM 已准备好。如果插件绑定后还要再执行一下事件的 handler 函数的话，那就提取出来，放在 activated 中执行。比如：根据输入内容自动增长 textarea 的高度，这部分需要监听 textarea 的 input 和 change 事件，并且页面进入后还要再次执行一次 handler 函数，更新 textarea 高度（避免上次输入的影响）。</p>
+<h2 id="5-地图组件处理"><a href="#5-地图组件处理" class="headerlink" title="5. 地图组件处理"></a>5. 地图组件处理</h2><p>想必这是使用<code>keep-alive</code>最直接的性能表现。之前是进入地图页面后进行地图渲染+线路标记；现在是清除以前的线路标记绘制新的线路，性能优化可想而知！</p>
+<p>我这里使用的是高德地图，在 mounted 中初始化 map，代码示例如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  name: <span class="string">"transferMap"</span>,</span><br><span class="line">  data: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      map: <span class="literal">null</span></span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    initData: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;,</span><br><span class="line">    searchTransfer: <span class="function"><span class="keyword">function</span>(<span class="params">type</span>) </span>&#123;&#125;,</span><br><span class="line">    <span class="comment">// 地图渲染 这个在transfer-map.html中使用</span></span><br><span class="line">    renderTransferMap: <span class="function"><span class="keyword">function</span>(<span class="params">transferMap</span>) </span>&#123;&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  mounted: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.map = <span class="keyword">new</span> AMap.Map(<span class="string">"container"</span>, &#123;</span><br><span class="line">      showBuildingBlock: <span class="literal">true</span>,</span><br><span class="line">      animateEnable: <span class="literal">true</span>,</span><br><span class="line">      resizeEnable: <span class="literal">true</span>,</span><br><span class="line">      zoom: <span class="number">12</span> <span class="comment">//地图显示的缩放级别</span></span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;,</span><br><span class="line">  activated: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> _this = <span class="keyword">this</span>;</span><br><span class="line">    _this.initData();</span><br><span class="line">    <span class="comment">// 设置title</span></span><br><span class="line">    setDocumentTitle(<span class="string">"换乘地图"</span>);</span><br><span class="line">    _this.searchTransfer(_this.policyType).then(<span class="function"><span class="keyword">function</span>(<span class="params">result</span>) </span>&#123;</span><br><span class="line">      <span class="comment">// 数据加载完成</span></span><br><span class="line">      <span class="comment">// 换乘地图页面</span></span><br><span class="line">      <span class="keyword">let</span> transferMap = result.plans[_this.activeIndex];</span><br><span class="line">      transferMap.origin = result.origin;</span><br><span class="line">      transferMap.destination = result.destination;</span><br><span class="line">      <span class="comment">// 填数据</span></span><br><span class="line">      _this.transferMap = transferMap;</span><br><span class="line">      <span class="comment">// 地图渲染</span></span><br><span class="line">      _this.renderTransferMap(transferMap);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;,</span><br><span class="line">  deactivated: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 清理地图之前的标记</span></span><br><span class="line">    <span class="keyword">this</span>.map.clearMap();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="6-document-title-修改"><a href="#6-document-title-修改" class="headerlink" title="6. document.title 修改"></a>6. document.title 修改</h2><p>这个不是<code>keep-alive</code>的问题，不过我也在这里分享下。</p>
+<p>问题是，使用下面这段方法，可以修改 Title，但是页面来回切换多次后就不生效了，我也不知道为啥，放到 setTimeout 中就直接不执行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">document.title = &apos;页面名称&apos;;</span><br></pre></td></tr></table></figure>
+<p>下面是使用 2 种环境的修复方法：</p>
+<p>纯 js 实现</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setDocumentTitle</span>(<span class="params">title</span>) </span>&#123;</span><br><span class="line"><span class="meta">  "use strict"</span>;</span><br><span class="line">  <span class="comment">//以下代码可以解决以上问题，不依赖jq</span></span><br><span class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">//利用iframe的onload事件刷新页面</span></span><br><span class="line">    <span class="built_in">document</span>.title = title;</span><br><span class="line">    <span class="keyword">var</span> iframe = <span class="built_in">document</span>.createElement(<span class="string">"iframe"</span>);</span><br><span class="line">    iframe.src = <span class="string">"/favicon.ico"</span>; <span class="comment">// 必须</span></span><br><span class="line">    iframe.style.visibility = <span class="string">"hidden"</span>;</span><br><span class="line">    iframe.style.width = <span class="string">"1px"</span>;</span><br><span class="line">    iframe.style.height = <span class="string">"1px"</span>;</span><br><span class="line">    iframe.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">document</span>.body.removeChild(iframe);</span><br><span class="line">      &#125;, <span class="number">0</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(iframe);</span><br><span class="line">  &#125;, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>jQuery/Zepto 实现</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setDocumentTitle</span>(<span class="params">title</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//需要jQuery</span></span><br><span class="line">  <span class="keyword">var</span> $body = $(<span class="string">"body"</span>);</span><br><span class="line">  <span class="built_in">document</span>.title = title;</span><br><span class="line">  <span class="comment">// hack在微信等webview中无法修改document.title的情况</span></span><br><span class="line">  <span class="keyword">var</span> $iframe = $(<span class="string">'&lt;iframe src="/favicon.ico"&gt;&lt;/iframe&gt;'</span>);</span><br><span class="line">  $iframe</span><br><span class="line">    .on(<span class="string">"load"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        $iframe.off(<span class="string">"load"</span>).remove();</span><br><span class="line">      &#125;, <span class="number">0</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">    .appendTo($body);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/22/2016-10-22/" rel="next" title="JavaScript arguments 对象全面介绍">
+                <i class="fa fa-chevron-left"></i> JavaScript arguments 对象全面介绍
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/25/2016-12-25/" rel="prev" title="Vue2之去掉组件的click事件的native修饰">
+                Vue2之去掉组件的click事件的native修饰 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Akira Sun</p>
+              <p class="site-description motion-element" itemprop="description">前端 | 摄影 | 研究烧菜</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-什么阶段获取数据"><span class="nav-number">1.</span> <span class="nav-text">1. 什么阶段获取数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-route中的数据读不到"><span class="nav-number">2.</span> <span class="nav-text">2. $route中的数据读不到</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-当页动态修改-url"><span class="nav-number">3.</span> <span class="nav-text">3. 当页动态修改 url</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-事件如何处理"><span class="nav-number">4.</span> <span class="nav-text">4. 事件如何处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-地图组件处理"><span class="nav-number">5.</span> <span class="nav-text">5. 地图组件处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-document-title-修改"><span class="nav-number">6.</span> <span class="nav-text">6. document.title 修改</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Akira Sun</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

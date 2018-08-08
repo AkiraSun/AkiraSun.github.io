@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="rem布局之媒体匹配最早的时候用的rem适配方法，通过手动设置媒体查询对不同设备进行设置font-size123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960// 自适应 // ------------------------ht">
+<meta property="og:type" content="article">
+<meta property="og:title" content="移动端h5之rem布局／px2rem">
+<meta property="og:url" content="http://yoursite.com/2017/07/31/2017-07-31/index.html">
+<meta property="og:site_name" content="进击的Akira">
+<meta property="og:description" content="rem布局之媒体匹配最早的时候用的rem适配方法，通过手动设置媒体查询对不同设备进行设置font-size123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960// 自适应 // ------------------------ht">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6260384-c0610e8c10ecc168.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6260384-85db3006d6970335.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6260384-7abb8954378ec679.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6260384-c70342739f4c23b1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6260384-9a66ad623a487fe2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6260384-d4431c62aa244300.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-08-08T12:33:41.453Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="移动端h5之rem布局／px2rem">
+<meta name="twitter:description" content="rem布局之媒体匹配最早的时候用的rem适配方法，通过手动设置媒体查询对不同设备进行设置font-size123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960// 自适应 // ------------------------ht">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/6260384-c0610e8c10ecc168.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/07/31/2017-07-31/"/>
+
+
+
+
+
+  <title>移动端h5之rem布局／px2rem | 进击的Akira</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">进击的Akira</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">死码字的</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/31/2017-07-31/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Akira Sun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="进击的Akira">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">移动端h5之rem布局／px2rem</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-31T14:45:22+08:00">
+                2017-07-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端开发/" itemprop="url" rel="index">
+                    <span itemprop="name">前端开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="rem布局之媒体匹配"><a href="#rem布局之媒体匹配" class="headerlink" title="rem布局之媒体匹配"></a>rem布局之媒体匹配</h4><p>最早的时候用的rem适配方法，通过手动设置媒体查询对不同设备进行设置font-size<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">// 自适应 </span><br><span class="line">// ------------------------</span><br><span class="line">html&#123;</span><br><span class="line">  font-size: 38px;</span><br><span class="line">&#125;</span><br><span class="line">@media only screen and (min-width: 320px) &#123;</span><br><span class="line">  html &#123;</span><br><span class="line">    font-size: 42.666px !important;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">@media only screen and (min-width: 360px) &#123;</span><br><span class="line">  html &#123;</span><br><span class="line">    font-size: 48px !important;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">@media only screen and (min-width: 375px) &#123;</span><br><span class="line">  html &#123;</span><br><span class="line">    font-size: 50px !important;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">@media only screen and (min-width: 414px) &#123;</span><br><span class="line">  html &#123;</span><br><span class="line">    font-size: 55.2px !important;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">@media only screen and (min-width: 480px) &#123;</span><br><span class="line">  html &#123;</span><br><span class="line">    font-size: 64px !important;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">@media only screen and (min-width: 560px) &#123;</span><br><span class="line">  html &#123;</span><br><span class="line">    font-size: 74.666px !important;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">@media only screen and (min-width: 640px) &#123;</span><br><span class="line">  html &#123;</span><br><span class="line">    font-size: 85.333px !important;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">@media only screen and (min-width: 720px) &#123;</span><br><span class="line">  html &#123;</span><br><span class="line">    font-size: 96px !important;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">@media only screen and (min-width: 750px) &#123;</span><br><span class="line">  html &#123;</span><br><span class="line">    font-size: 100px !important;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">@media only screen and (min-width: 800px) &#123;</span><br><span class="line">  html &#123;</span><br><span class="line">    font-size: 106.666px !important;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">@media only screen and (min-width: 960px) &#123;</span><br><span class="line">  html &#123;</span><br><span class="line">    font-size: 128px !important;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当然这是很古老的方法，可以看出来我们的设计稿是750px的，以750为基准设置font-size为100<br>我们可以看出这个方法通过人为比例计算，不能做到设备之间很好的覆盖有很大误差</p>
+<h4 id="rem布局之自动设置fontsize"><a href="#rem布局之自动设置fontsize" class="headerlink" title="rem布局之自动设置fontsize"></a>rem布局之自动设置fontsize</h4><p>所有有了下面这个根据屏幕尺寸自动设置font-size的方法，直接贴代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">(function (doc, win) &#123;</span><br><span class="line">        var docEl = doc.documentElement,</span><br><span class="line">            resizeEvt = &apos;orientationchange&apos; in window ? &apos;orientationchange&apos; : &apos;resize&apos;,</span><br><span class="line">            recalc = function () &#123;</span><br><span class="line">                var clientWidth = docEl.clientWidth;</span><br><span class="line">                if (!clientWidth) return;</span><br><span class="line">                if(clientWidth&gt;=640)&#123;</span><br><span class="line">                    docEl.style.fontSize = &apos;100px&apos;;</span><br><span class="line">                &#125;else&#123;</span><br><span class="line">                    docEl.style.fontSize = 100 * (clientWidth / 640) + &apos;px&apos;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line"></span><br><span class="line">        if (!doc.addEventListener) return;</span><br><span class="line">        win.addEventListener(resizeEvt, recalc, false);</span><br><span class="line">        doc.addEventListener(&apos;DOMContentLoaded&apos;, recalc, false);</span><br><span class="line">    &#125;)(document, window);</span><br></pre></td></tr></table></figure></p>
+<p>这段代码的大意是：<br>如果页面的宽度超过了640px，那么页面中html的font-size恒为100px，否则，页面中html的font-size的大小为： 100 * (当前页面宽度 / 640) </p>
+<p>但是如果ui出的图是750px的你也要适当调整一下，为了方便计算也可以调整宽度<br>我们以设计稿为640px为基准<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">width:100px;</span><br><span class="line">width:1rem;//转换计算后为1rem</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6260384-c0610e8c10ecc168.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="iphone5-1.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6260384-85db3006d6970335.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="iphone6-1.png"></p>
+<h4 id="rem布局之开阔视野"><a href="#rem布局之开阔视野" class="headerlink" title="rem布局之开阔视野"></a>rem布局之开阔视野</h4><p>该方案使用相当简单，把下面这段已压缩过的 原生JS（仅1kb） 放到 HTML 的 head 标签中即可（注:不要手动设置viewport，该方案自动帮你设置）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;!function(e)&#123;function t(a)&#123;if(i[a])return i[a].exports;var n=i[a]=&#123;exports:&#123;&#125;,id:a,loaded:!1&#125;;return e[a].call(n.exports,n,n.exports,t),n.loaded=!0,n.exports&#125;var i=&#123;&#125;;return t.m=e,t.c=i,t.p=&quot;&quot;,t(0)&#125;([function(e,t)&#123;&quot;use strict&quot;;Object.defineProperty(t,&quot;__esModule&quot;,&#123;value:!0&#125;);var i=window;t[&quot;default&quot;]=i.flex=function(e,t)&#123;var a=e||100,n=t||1,r=i.document,o=navigator.userAgent,d=o.match(/Android[\S\s]+AppleWebkit\/(\d&#123;3&#125;)/i),l=o.match(/U3\/((\d+|\.)&#123;5,&#125;)/i),c=l&amp;&amp;parseInt(l[1].split(&quot;.&quot;).join(&quot;&quot;),10)&gt;=80,p=navigator.appVersion.match(/(iphone|ipad|ipod)/gi),s=i.devicePixelRatio||1;p||d&amp;&amp;d[1]&gt;534||c||(s=1);var u=1/s,m=r.querySelector(&apos;meta[name=&quot;viewport&quot;]&apos;);m||(m=r.createElement(&quot;meta&quot;),m.setAttribute(&quot;name&quot;,&quot;viewport&quot;),r.head.appendChild(m)),m.setAttribute(&quot;content&quot;,&quot;width=device-width,user-scalable=no,initial-scale=&quot;+u+&quot;,maximum-scale=&quot;+u+&quot;,minimum-scale=&quot;+u),r.documentElement.style.fontSize=a/2*s*n+&quot;px&quot;&#125;,e.exports=t[&quot;default&quot;]&#125;]);  flex(100, 1);&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>这是阿里团队的高清方案布局代码，所谓高清方案就是根据设备屏幕的DPR（设备像素比，又称DPPX，比如dpr=2时，表示1个CSS像素由2个物理像素点组成）<strong> 动态设置 html 的font-size, 同时根据设备DPR调整页面的缩放值，进而达到高清效果</strong><br><a href="https://www.w3cplus.com/mobile/lib-flexible-for-html5-layout.html" target="_blank" rel="noopener">关于像素请进</a></p>
+<h6 id="此方案也是默认-1rem-100px，所以你布局的时候，完全可以按照设计师给你的效果图写各种尺寸啦。"><a href="#此方案也是默认-1rem-100px，所以你布局的时候，完全可以按照设计师给你的效果图写各种尺寸啦。" class="headerlink" title="此方案也是默认 1rem = 100px，所以你布局的时候，完全可以按照设计师给你的效果图写各种尺寸啦。"></a>此方案也是默认 1rem = 100px，所以你布局的时候，完全可以按照设计师给你的效果图写各种尺寸啦。</h6><p><img src="http://upload-images.jianshu.io/upload_images/6260384-7abb8954378ec679.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="iphone5.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6260384-c70342739f4c23b1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="iphone6.png"></p>
+<p>到这里大家和上面的对比应该有发现些什么，我们屏幕越大，像素越高，看到的应用越多</p>
+<p>源码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&apos;use strict&apos;;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @param &#123;Number&#125; [baseFontSize = 100] - 基础fontSize, 默认100px;</span><br><span class="line"> * @param &#123;Number&#125; [fontscale = 1] - 有的业务希望能放大一定比例的字体;</span><br><span class="line"> */</span><br><span class="line">const win = window;</span><br><span class="line">export default win.flex = (baseFontSize, fontscale) =&gt; &#123;</span><br><span class="line">  const _baseFontSize = baseFontSize || 100;</span><br><span class="line">  const _fontscale = fontscale || 1;</span><br><span class="line"></span><br><span class="line">  const doc = win.document;</span><br><span class="line">  const ua = navigator.userAgent;</span><br><span class="line">  const matches = ua.match(/Android[\S\s]+AppleWebkit\/(\d&#123;3&#125;)/i);</span><br><span class="line">  const UCversion = ua.match(/U3\/((\d+|\.)&#123;5,&#125;)/i);</span><br><span class="line">  const isUCHd = UCversion &amp;&amp; parseInt(UCversion[1].split(&apos;.&apos;).join(&apos;&apos;), 10) &gt;= 80;</span><br><span class="line">  const isIos = navigator.appVersion.match(/(iphone|ipad|ipod)/gi);</span><br><span class="line">  let dpr = win.devicePixelRatio || 1;</span><br><span class="line">  if (!isIos &amp;&amp; !(matches &amp;&amp; matches[1] &gt; 534) &amp;&amp; !isUCHd) &#123;</span><br><span class="line">    // 如果非iOS, 非Android4.3以上, 非UC内核, 就不执行高清, dpr设为1;</span><br><span class="line">    dpr = 1;</span><br><span class="line">  &#125;</span><br><span class="line">  const scale = 1 / dpr;</span><br><span class="line"></span><br><span class="line">  let metaEl = doc.querySelector(&apos;meta[name=&quot;viewport&quot;]&apos;);</span><br><span class="line">  if (!metaEl) &#123;</span><br><span class="line">    metaEl = doc.createElement(&apos;meta&apos;);</span><br><span class="line">    metaEl.setAttribute(&apos;name&apos;, &apos;viewport&apos;);</span><br><span class="line">    doc.head.appendChild(metaEl);</span><br><span class="line">  &#125;</span><br><span class="line">  metaEl.setAttribute(&apos;content&apos;, `width=device-width,user-scalable=no,initial-scale=$&#123;scale&#125;,maximum-scale=$&#123;scale&#125;,minimum-scale=$&#123;scale&#125;`);</span><br><span class="line">  doc.documentElement.style.fontSize = `$&#123;_baseFontSize / 2 * dpr * _fontscale&#125;px`;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>看到大漠写了一种关于viewport-vw-vh的适配方法，大家也可以看看相关资料<br><a href="https://www.w3cplus.com/css/vw-for-layout.html" target="_blank" rel="noopener">Viewport移动端适配</a></p>
+<h4 id="rem布局之px2rem"><a href="#rem布局之px2rem" class="headerlink" title="rem布局之px2rem"></a>rem布局之px2rem</h4><p>我们在写rem布局的时候发现，尽管我们设置了基准font-size，但是我们还是要去换选一下，有没有办法直接写px，让他自动换算成rem<br>有这样的需求当然我们也有解决方案</p>
+<h5 id="px2rem的原理："><a href="#px2rem的原理：" class="headerlink" title="px2rem的原理："></a>px2rem的原理：</h5><p><img src="http://upload-images.jianshu.io/upload_images/6260384-9a66ad623a487fe2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="px2rem.png"><br>官方例子 <a href="https://www.npmjs.com/package/postcss-px2rem" target="_blank" rel="noopener">https://www.npmjs.com/package/postcss-px2rem</a></p>
+<ul>
+<li>gulp脚手架下</li>
+</ul>
+<p>安装gulp-px2rem-plugin模块<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install gulp-postcss --save-dev</span><br></pre></td></tr></table></figure></p>
+<p>gulpfile.js文件内处理<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var gulp = require(&apos;gulp&apos;);</span><br><span class="line">var postcss = require(&apos;gulp-postcss&apos;);</span><br><span class="line">var px2rem = require(&apos;postcss-px2rem&apos;);</span><br><span class="line"> </span><br><span class="line">gulp.task(&apos;default&apos;, function() &#123;</span><br><span class="line">  var processors = [px2rem(&#123;remUnit: 75&#125;)];</span><br><span class="line">  return gulp.src(&apos;./src/*.css&apos;)</span><br><span class="line">    .pipe(postcss(processors))</span><br><span class="line">    .pipe(gulp.dest(&apos;./dest&apos;));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>vue-webpack下面<br>webpack官方有简单举例<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install postcss-loader --save-dev</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var px2rem = require(&apos;postcss-px2rem&apos;);</span><br><span class="line"> </span><br><span class="line">module.exports = &#123;</span><br><span class="line">  module: &#123;</span><br><span class="line">    loaders: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: /\.css$/,</span><br><span class="line">        loader: &quot;style-loader!css-loader!postcss-loader&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  postcss: function() &#123;</span><br><span class="line">    return [px2rem(&#123;remUnit: 75&#125;)];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以下举例vue的写法，vue中以上webpack写法加载出错</p>
+<p>在webpack.base中先处理css和postcss<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">          test: /\.(css|scss)$/,</span><br><span class="line">          loader:&quot;style-loader!css-loader!sass-loader!postcss-loader&quot;</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们对px2rem写入vue-loader中</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6260384-d4431c62aa244300.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="vue-px2rem.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var utils = require(&apos;./utils&apos;)</span><br><span class="line">var config = require(&apos;../config&apos;)</span><br><span class="line">var isProduction = process.env.NODE_ENV === &apos;production&apos;</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  //使用px-rem转换</span><br><span class="line">  postcss: [require(&apos;postcss-px2rem&apos;)(&#123;remUnit: 100&#125;)],</span><br><span class="line">  loaders: utils.cssLoaders(&#123;</span><br><span class="line">    sourceMap: isProduction</span><br><span class="line">      ? config.build.productionSourceMap</span><br><span class="line">      : config.dev.cssSourceMap,</span><br><span class="line">    extract: isProduction</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="关于1px转换"><a href="#关于1px转换" class="headerlink" title="关于1px转换"></a>关于1px转换</h3><p>这样一切看上去如此完美了，但是又有个大问题需要注意——1px的边框在转化为rem时，在andriod webview以及部分低版本ios webview 会看不到。处理方法——让1px在编译后，依然是1px<br>使用postcss-px2rem插件处理px时候，需要在使用时候注意每个属性后面的分号不能省略，默认是都转换为rem，</p>
+<p>如若某个属性不需要转换为rem，需要按照dpr不同而分别设置大小，则在后面加上注释/<em>px</em>/，</p>
+<p>如若需要原样输出，则在后面加上注释/<em>no</em>/，此处需要多加留意，对于刚接触的我们新手来说，是个坑啊！<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.border_style&#123;</span><br><span class="line">    border-color: @border_color;</span><br><span class="line">    border-style: solid;</span><br><span class="line">    border-width: 1px;/*no*/</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们知道现在iphone大多数型号都用上了retina屏，而retina屏的分辨率相较于普通屏幕增加了一倍，也就是说原来1个像素宽度的区域内可以塞进2个像素了。我们css写的1px是一个概念像素，在retina屏的实际设备上占了2px的位置。</p>
+<p>而对于手机屏幕整体来说，一个标注了750宽的手机（iPhone6）在css中只需要375px就能表示<br>scale缩放<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">全能型写法</span><br><span class="line">@media (-webkit-min-device-pixel-ratio: 2)&#123;</span><br><span class="line">  .border-bottom::after &#123;</span><br><span class="line">     border-bottom-width: 1px;</span><br><span class="line">  &#125;</span><br><span class="line">  .border:after &#123;</span><br><span class="line">    content: &apos; &apos;;</span><br><span class="line">    display: block;</span><br><span class="line">    position: absolute;</span><br><span class="line">    top: 0;</span><br><span class="line">    right: -100%;</span><br><span class="line">    bottom: -100%;</span><br><span class="line">    left: 0;</span><br><span class="line">    border: 0 solid #e1e1e1;</span><br><span class="line">    -webkit-transform-origin: 0 0;</span><br><span class="line">    transform-origin: 0 0;</span><br><span class="line">    pointer-events: none;</span><br><span class="line">    -webkit-transform: scale(.5);</span><br><span class="line">    transform: scale(.5);</span><br><span class="line">    width: 200%;</span><br><span class="line">    -webkit-box-sizing: border-box;</span><br><span class="line">    box-sizing: border-box;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">满足一般需求可以使用这个</span><br><span class="line">@media (-webkit-min-device-pixel-ratio: 2)</span><br><span class="line">.border:after &#123;</span><br><span class="line">    height: 1px;</span><br><span class="line">    content: &apos;&apos;;</span><br><span class="line">    width: 100%;</span><br><span class="line">    border-top: 1px solid #e1e1e1;</span><br><span class="line">    position: absolute;</span><br><span class="line">    bottom: -1px;</span><br><span class="line">    right: 0;</span><br><span class="line">    transform: scaleY(0.5);</span><br><span class="line">    -webkit-transform: scaleY(0.5);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/15/2017-07-15/" rel="next" title="深入理解flex">
+                <i class="fa fa-chevron-left"></i> 深入理解flex
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/06/2017-08-06/" rel="prev" title="前端性能优化">
+                前端性能优化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Akira Sun</p>
+              <p class="site-description motion-element" itemprop="description">前端 | 摄影 | 研究烧菜</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#rem布局之媒体匹配"><span class="nav-number">1.</span> <span class="nav-text">rem布局之媒体匹配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rem布局之自动设置fontsize"><span class="nav-number">2.</span> <span class="nav-text">rem布局之自动设置fontsize</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rem布局之开阔视野"><span class="nav-number">3.</span> <span class="nav-text">rem布局之开阔视野</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#此方案也是默认-1rem-100px，所以你布局的时候，完全可以按照设计师给你的效果图写各种尺寸啦。"><span class="nav-number">3.0.1.</span> <span class="nav-text">此方案也是默认 1rem = 100px，所以你布局的时候，完全可以按照设计师给你的效果图写各种尺寸啦。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rem布局之px2rem"><span class="nav-number">4.</span> <span class="nav-text">rem布局之px2rem</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#px2rem的原理："><span class="nav-number">4.1.</span> <span class="nav-text">px2rem的原理：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于1px转换"><span class="nav-number"></span> <span class="nav-text">关于1px转换</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Akira Sun</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
